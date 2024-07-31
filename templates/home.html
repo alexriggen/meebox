@@ -1,0 +1,24 @@
+
+{% extends 'main_template.html' %}
+<style>
+    
+</style>
+
+{% block content %}
+<h1>MOVIMIENTOS POR MES</h1>
+
+<form method="get" action="{% url 'home' %}">
+    <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+<br>
+    <div class="month-container">
+        {% for month in months %}
+            <a href="/other/{{ month.id }}"><b>{{ month }}</b></a>
+            <a href="/edit_month/{{ month.id }}"><button>editar</button></a><br><br>
+        {% endfor %}
+    </div>
+
+{% endblock %}

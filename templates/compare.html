@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comparar meses</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>Comparar Meses</h1>
+
+    
+    <form method="post" action="{% url 'comparar' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Comparar</button>
+    </form>
+
+
+    {% if month1 and month2 %}
+        <h2>{{ month1.name }} y {{ month2.name }}</h2>
+        <div style="display: flex;">
+            <div style="flex: 1; margin-right: 20px;">
+                <h3>Movimientos {{ month1.name }}</h3>
+                    <table border="1">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Cargo</th>
+                            <th>Abono</th>
+                            <th>Saldo</th>
+                            <th>Descripcion</th>
+                        </tr>
+                        {% for entry in entries_month1 %}
+                        <tr>
+                            <td>{{ entry.date }}</td>
+                            <td>{{ entry.concepto }}</td>
+                            <td>{% if entry.cargo %}{{ entry.cargo }}{% else %}  {% endif %}</td>
+                            <td>{% if entry.abono %}{{ entry.abono }}{% else %}  {% endif %}</td>
+                            <td>{{ entry.saldo }}</td>
+                            <td>{% if entry.description %}{{ entry.description }}{% else %}  {% endif %}</td>
+                            
+                        {% empty %}
+                        <li>No hay movimientos.</li>
+                        {% endfor %}
+                        </tr>
+                    </table>
+            </div>
+            <div style="flex: 1;">
+                <h3>Movimientos {{ month2.name }}</h3>
+                <table border="1">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Concepto</th>
+                        <th>Cargo</th>
+                        <th>Abono</th>
+                        <th>Saldo</th>
+                        <th>Descripcion</th>
+                    </tr>
+                    {% for entry in entries_month2 %}
+                    <tr>
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.concepto }}</td>
+                        <td>{% if entry.cargo %}{{ entry.cargo }}{% else %}  {% endif %}</td>
+                        <td>{% if entry.abono %}{{ entry.abono }}{% else %}  {% endif %}</td>
+                        <td>{{ entry.saldo }}</td>
+                        <td>{% if entry.description %}{{ entry.description }}{% else %}  {% endif %}</td>
+                        
+                    {% empty %}
+                    <li>No hay movimientos.</li>
+                    {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

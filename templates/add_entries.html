@@ -1,0 +1,12 @@
+<h1>Añadir movimientos para {{ month.name }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Subir</button>
+</form>
+
+{% if file_content %}
+    <h2>Contenido de archivo:</h2>
+    <pre>{{ file_content }}</pre>
+{% endif %}

@@ -1,0 +1,47 @@
+{% extends 'main_template.html' %}
+
+{% block content %}
+<h2>Movimientos: {{ month.name }}</h2>
+
+    <form method="get" action="{% url 'other' month_id  %}">
+        <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar">
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Cargo</th>
+            <th>Abono</th>
+            <th>Saldo</th>
+            <th>Descripcion</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.concepto }}</td>
+            <td>{% if entry.cargo %}{{ entry.cargo }}{% else %}  {% endif %}</td>
+            <td>{% if entry.abono %}{{ entry.abono }}{% else %}  {% endif %}</td>
+            <td>{{ entry.saldo }}</td>
+            <td>{% if entry.description %}{{ entry.description }}{% else %}  {% endif %}</td>
+            <td><a href="/edit_movimiento/{{ entry.id }}"><button>editar</button></a></td>
+            
+        {% empty %}
+        <li>No hay movimientos.</li>
+        {% endfor %}
+        </tr>
+    </table>
+    <br><hr><br>
+    <table border="1">
+        <tr>
+            <th>Cargo total</th>
+            <th>Abono total</th>
+        </tr>
+        <tr>
+            <td>{{ cargo_total }}</td>
+            <td>{{ abono_total }}</td>
+        </tr>
+    </table>
+
+{% endblock %}

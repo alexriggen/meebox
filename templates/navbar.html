@@ -1,0 +1,31 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" type ="text/css" href="{% static 'styles/navbar.css' %}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/" class="nav-item">
+        <h1>MEEBOX</h1>
+    </a>
+    <a href="{% url 'addentry' %}" class="nav-item">
+        <h1>AÑADIR MES</h1>
+    </a>
+    <a href="{% url 'comparar' %}" class="nav-item">
+        <h1>COMPARAR</h1>
+    </a>
+    <a href="#" class="nav-item">
+        <h1>ESTADISTICAS</h1>
+    </a>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    {% endif %}
+</div>
+<hr>
+
+</body>
+</html>
