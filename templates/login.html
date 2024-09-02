@@ -1,17 +1,47 @@
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <div>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
+{% extends 'main.html '%}
+
+{% block extra_css %}
+{% endblock %}
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .login-container .btn {
+        width: 100%;
+    }
+</style>
+{% block content %}
+<br>
+<div class="container-fluid d-flex align-items-center justify-content-center min-vh-100">
+    <div class="col-md-4">
+        <div class = "container-fluid d-flex align-items-center justify-content-center">
+         <h1>meeb<span style="color: orangered;">[ ]</span>x</h1>
+         <br>
+         <br>
+        </div>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            </div>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </form>
     </div>
-    <div>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <button type="submit">Iniciar sesión</button>
-    </div>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-</form>
+</div>
+{% endblock %}

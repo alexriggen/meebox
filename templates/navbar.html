@@ -1,31 +1,37 @@
+{% extends 'main.html' %}
 {% load static %}
-<head>
-    <link rel="stylesheet" type ="text/css" href="{% static 'styles/navbar.css' %}">
-</head>
-<body>
+{% block content %}
+<div class="container-fluid">
 
-<div class="navbar">
-    <a href="/" class="nav-item">
-        <h1>MEEBOX</h1>
-    </a>
-    <a href="{% url 'addentry' %}" class="nav-item">
-        <h1>AÑADIR MES</h1>
-    </a>
-    <a href="{% url 'comparar' %}" class="nav-item">
-        <h1>COMPARAR</h1>
-    </a>
-    <a href="#" class="nav-item">
-        <h1>ESTADISTICAS</h1>
-    </a>
-
-    {% if user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Cerrar sesión</button>
-        </form>
-    {% endif %}
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+      <li class="navbar-brand">
+        meeb<span style="color: orangered;">[ ]</span>x
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">MESES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'addentry' %}">AÑADIR MES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'comparar' %}">COMPARAR</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">ESTADISTICAS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">FACTURAS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">USUARIOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+      </li>
+    </ul>
+  </nav>
 </div>
-<hr>
 
-</body>
-</html>
+{% endblock %}
+

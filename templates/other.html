@@ -1,47 +1,51 @@
 {% extends 'main_template.html' %}
 
 {% block content %}
-<h2>Movimientos: {{ month.name }}</h2>
+<div class="container-fluid p-3 my-3 bg-dark text-white"><h3>Movimientos: {{ month.name }}</h3></div>
+<div class="container-fluid">
+    <div class="container-fluid mt-4">
+        <form method="get" action="{% url 'other' month_id  %}" class="form-inline">
+            <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar" class ="form-control mr-sm-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <br>
 
-    <form method="get" action="{% url 'other' month_id  %}">
-        <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar">
-        <button type="submit">Search</button>
-    </form>
-
-    <table border="1">
-        <tr>
-            <th>Fecha</th>
-            <th>Concepto</th>
-            <th>Cargo</th>
-            <th>Abono</th>
-            <th>Saldo</th>
-            <th>Descripcion</th>
-        </tr>
-        {% for entry in entries %}
-        <tr>
-            <td>{{ entry.date }}</td>
-            <td>{{ entry.concepto }}</td>
-            <td>{% if entry.cargo %}{{ entry.cargo }}{% else %}  {% endif %}</td>
-            <td>{% if entry.abono %}{{ entry.abono }}{% else %}  {% endif %}</td>
-            <td>{{ entry.saldo }}</td>
-            <td>{% if entry.description %}{{ entry.description }}{% else %}  {% endif %}</td>
-            <td><a href="/edit_movimiento/{{ entry.id }}"><button>editar</button></a></td>
-            
-        {% empty %}
-        <li>No hay movimientos.</li>
-        {% endfor %}
-        </tr>
-    </table>
-    <br><hr><br>
-    <table border="1">
-        <tr>
-            <th>Cargo total</th>
-            <th>Abono total</th>
-        </tr>
-        <tr>
-            <td>{{ cargo_total }}</td>
-            <td>{{ abono_total }}</td>
-        </tr>
-    </table>
-
+        <table border="1" class="table table-hover table-sm">
+            <thead class="thead-dark">
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Cargo</th>
+                <th>Abono</th>
+                <th>Saldo</th>
+                <th>Descripcion</th>
+                <th></th>
+            </thead>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.concepto }}</td>
+                <td>{% if entry.cargo %}{{ entry.cargo }}{% else %}  {% endif %}</td>
+                <td>{% if entry.abono %}{{ entry.abono }}{% else %}  {% endif %}</td>
+                <td>{{ entry.saldo }}</td>
+                <td>{% if entry.description %}{{ entry.description }}{% else %}  {% endif %}</td>
+                <td><a href="/edit_movimiento/{{ entry.id }}"><button class="btn btn-outline-dark btn-sm">editar</button></a></td>
+                
+            {% empty %}
+            <li>No hay movimientos.</li>
+            {% endfor %}
+            </tr>
+        </table>
+        <br><hr><br>
+        <table border="1" class="table table-hover">
+            <thead class="thead-dark">
+                <th>Cargo total</th>
+                <th>Abono total</th>
+            </thead>
+            <tr>
+                <td>{{ cargo_total }}</td>
+                <td>{{ abono_total }}</td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}

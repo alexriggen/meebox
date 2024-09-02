@@ -5,19 +5,20 @@
 </style>
 
 {% block content %}
-<h1>MOVIMIENTOS POR MES</h1>
-
-<form method="get" action="{% url 'home' %}">
-    <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar">
-    <button type="submit">Search</button>
-</form>
+<div class="container-fluid p-3 my-3 bg-dark text-white"><h3>Movimientos por mes</h3></div>
+    <div class="container-fluid mt-4">
+        <form method="get" action="{% url 'home' %}" class="form-inline">
+            <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Buscar" class ="form-control mr-sm-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
 
 <hr>
 <br>
-    <div class="month-container">
+    <div class="container-fluid">
         {% for month in months %}
-            <a href="/other/{{ month.id }}"><b>{{ month }}</b></a>
-            <a href="/edit_month/{{ month.id }}"><button>editar</button></a><br><br>
+            <a href="/other/{{ month.id }}" class="text-dark" style="font-size: 1.25rem;">{{ month }}</a>
+            <a href="/edit_month/{{ month.id }}"><button class="btn btn-outline-dark btn-sm">editar</button></a><br><br>
         {% endfor %}
     </div>
 

@@ -1,4 +1,5 @@
-<h1>Añadir movimientos para {{ month.name }}</h1>
+<div class="row justify-content-center">
+<div class="container-fluid p-3 my-3 bg-dark text-white"> <h3>Añadir movimientos para {{ month.name }}</h3></div>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,3 +11,4 @@
     <h2>Contenido de archivo:</h2>
     <pre>{{ file_content }}</pre>
 {% endif %}
+</div>
